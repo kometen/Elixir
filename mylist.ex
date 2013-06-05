@@ -32,8 +32,19 @@ defmodule MyList do
 	defp _mapsum([], _, sum), do: sum
 	defp _mapsum([head|tail], func, sum), do: _mapsum(tail, func, func.(head) + sum)
 
+	# max()
+	def max(list), do: _max(list, 0)
+	# private methods
+	defp _max([], m), do: m
+	defp _max([head|tail], 0), do: _max(tail, head)
+	defp _max([head|tail], m), do: (
+		if head > m, do: m = head
+		_max(tail, m)
+	)
+
 end
 
+MyList.max([1,6,3,-5])
 MyList.mapsum([1,2,3], &1 * &1)
 MyList.map [1,2,3,4], fn (n) -> n*n end
 MyList.reduce([1,2,3,4,5], 1, &1 * &2) 
